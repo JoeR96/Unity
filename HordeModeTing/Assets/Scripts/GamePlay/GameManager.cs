@@ -45,6 +45,7 @@ public class GameManager : Singleton<GameManager>
     private void WaveOne()
     {
         Debug.Log("One");
+        AmountToSpawn = 3;
         spawn.Spawn(PoolObjectType.MELEE, AmountToSpawn, spawn.GroundSpawnpoints);
         EnemyCounter += AmountToSpawn;
         _enemiesAlive = true;
@@ -64,6 +65,7 @@ public class GameManager : Singleton<GameManager>
     //Drops sniper rifle
     private void WaveThree()
     {
+        Debug.Log("three");
         AmountToSpawn = 1;
         spawn.Spawn(PoolObjectType.JUGGERNAUT, AmountToSpawn, spawn.GroundSpawnpoints);
         EnemyCounter += AmountToSpawn;
@@ -73,6 +75,7 @@ public class GameManager : Singleton<GameManager>
     //Aerial wave - use sniper to kill
     private void WaveFour()
     {
+        Debug.Log("Four");
         AmountToSpawn = 1;
         spawn.Spawn(PoolObjectType.AERIAL, AmountToSpawn, spawn.AerialSpawnPoints);
         EnemyCounter += AmountToSpawn;

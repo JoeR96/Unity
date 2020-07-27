@@ -8,7 +8,7 @@ public class AerialEnemy : BaseEnemy
     public AerialEnemy()
     {
         Type = PoolObjectType.AERIAL;
-        EnemyItem = PoolObjectType.BULLET;
+        EnemyItem = PoolObjectType.BULLET;        
         CurrentHealth = 0;
         MaxHealth = 80;
         Player = null;
@@ -16,7 +16,7 @@ public class AerialEnemy : BaseEnemy
     private void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player").transform;
-        FireBullet(EnemyItem);
+        
     }
 
     //Replace Start with OnEnable due to ObjectPooling
@@ -28,6 +28,7 @@ public class AerialEnemy : BaseEnemy
     private void Update()
     {
         transform.LookAt(Player);
+        FireBullet(EnemyItem);
     }
 
     private void FireBullet(PoolObjectType Type)
@@ -37,9 +38,8 @@ public class AerialEnemy : BaseEnemy
         toSpawn.transform.Rotate(115, 0, 0);
     }
 
-    private IEnumerator Fire(PoolObjectType Type)
+    private void Fire(PoolObjectType Type)
     {
         GameObject toSpawn = PoolManager.instance.GetPoolObject(Type);
-        yield return new WaitForSeconds(2);
     }
 }

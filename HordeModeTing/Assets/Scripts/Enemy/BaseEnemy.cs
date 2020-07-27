@@ -1,45 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BaseEnemy : MonoBehaviour
 {
-    [SerializeField]        
+    #region variables
+    [SerializeField]
     private float _currentHealth;
     private float _maxHealth;
     private bool _isDead;
-    [SerializeField]
-    public PoolObjectType EnemyItem;
-    [SerializeField]
-    public PoolObjectType Type;
-    [SerializeField]
-    public Transform Player;
-    [SerializeField]
+
     //Protected so it is accessible only to derived class
     //this will be our base speed value that will be different dependant on the enemy
     protected float _baseSpeed;
+    protected float _maxSpeed;
+    protected float _currentSpeed;
+    protected float _distance;
 
-    [SerializeField]
+    protected PoolObjectType EnemyItem;
+    protected PoolObjectType Type;
 
+    [SerializeField] GameObject Explosion;
+    protected Transform Player;
 
     public float CurrentHealth
     {
-        get 
-        { return _currentHealth; }
-        set 
-        { _currentHealth = value;}
-        
+        get => _currentHealth;
+        set => _currentHealth = value;
     }
 
-    public float MaxHealth
+    protected float MaxHealth
     {
-        get
-        { return _maxHealth; }
-        set
-        { _maxHealth = value; }
+        get => _maxHealth;
+        set => _maxHealth = value;
     }
 
-
+    #endregion
     private void Awake()
     {
         _isDead = false;
@@ -51,7 +48,6 @@ public class BaseEnemy : MonoBehaviour
         CurrentHealth = _maxHealth;
     }
 
-
     public void DamageEnemy(float damage)
     {
         if (!_isDead)
@@ -62,11 +58,10 @@ public class BaseEnemy : MonoBehaviour
             _isDead = true;
             Return();
         }
-
     }
 
-    private void Return()
+    protected void Return()
     {
-        PoolManager.instance.ReturnObject(this.gameObject, Type);
+        PoolManager.instance.ReturnObject(gameObject, Type);
     }
 }

@@ -8,14 +8,15 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     //UI Variables
+
     // [SerializeField] private TextMeshProUGUI TimerText;
     // [SerializeField] private TextMeshProUGUI ScoreText;
     [SerializeField] private TextMeshProUGUI AmmoText;
     // [SerializeField] private Slider _healthSlider;
     // [SerializeField] private Slider _armorSlider;
     [SerializeField] private Image _crosshair;
+    
     private float _timer;
-    private string _timerString;
     private int _score;
     private int _currentAmmo;
     private int _spareAmmo;
@@ -25,8 +26,15 @@ public class Player : MonoBehaviour
     private int _currentArmor;
     private bool _hasArmor;
     private bool _isAlive;
-    public float CurrentHealth;
-    
+
+    private float _currentHealth;
+
+    public float CurrentHealth
+    {
+        get => _currentHealth;
+        set => _currentHealth = value;
+    }
+
     //Weapon Variables
     public float _shotDelay;
     
@@ -39,15 +47,15 @@ public class Player : MonoBehaviour
     private int _previousWeapon;
     [SerializeField] private List<BaseWeapon> _weapons = new List<BaseWeapon>();
     [SerializeField] private BaseWeapon _currentWeapon = null;
-
+   
     private void Awake()
     {
         _weapons.Add(_currentWeapon);
         _mainCamera = Camera.main;
-        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, 100);
-        CurrentHealth = _maxHealth;
         _isAlive = true;
         _hasArmor = false;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, 100);
+        CurrentHealth = _maxHealth;
     }
     // Start is called before the first frame update
     private void Start()
@@ -83,7 +91,6 @@ public class Player : MonoBehaviour
          _timer += Time.deltaTime;
          //Here we get the first few digits of the timer otherwise the string is too long
          //would like to have done this cleaner
-         _timerString = _timer.ToString("000");
          // TimerText.SetText(_timerString);
          // //score variable to string and printed to UI
          // _score.ToString();
@@ -148,10 +155,10 @@ public class Player : MonoBehaviour
          }
          else
          {
-             CurrentHealth -= damage;
+            _currentHealth -= damage;
          }
 
-         if (CurrentHealth <= 0)
+         if (_currentHealth <= 0)
          {
              //GameOver.Play();
          }
@@ -195,7 +202,7 @@ public class Player : MonoBehaviour
          {
              _shotDelay = Time.time + _currentWeapon.RateOfFire;
              _currentWeapon.Ammo--;
-             //_currentWeapon.GunAudio.Play();
+             _currentWeapon.GunAudio.Play();
              _currentWeapon.MuzzleFlash.Play();
              
              Vector3 rayOrigin = _mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));

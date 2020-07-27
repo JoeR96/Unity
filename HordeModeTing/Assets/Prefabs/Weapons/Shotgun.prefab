@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunModel: {fileID: 0}
-  MuzzleFlash: {fileID: 0}
+  MuzzleFlash: {fileID: 1413873604076792546}
   GunAudio: {fileID: 0}
   NextFire: 0
   DamageRange: 450
@@ -194,6 +194,12 @@ PrefabInstance:
 --- !u!4 &1728050990335293029 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 394782143475106931, guid: d57cd453a4891a54ca4ae125a204178c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1333568502467015190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1413873604076792546 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 80748071691901172, guid: d57cd453a4891a54ca4ae125a204178c,
     type: 3}
   m_PrefabInstance: {fileID: 1333568502467015190}
   m_PrefabAsset: {fileID: 0}
