@@ -8,14 +8,16 @@ public class RunnerEnemy : BaseEnemy
     {
         Type = PoolObjectType.RUNNER;
         CurrentHealth = 0;
-        MaxHealth = 100;
-        BaseSpeed = 1f;
+        MaxHealth = 55;
+        _baseSpeed = 1f;
     }
+
+
 
     private void Update()
     {
         transform.LookAt(Player);
-        transform.position = Vector3.MoveTowards(transform.position, Player.position, BaseSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, Player.position, _baseSpeed * Time.deltaTime);
     }
 
     private void Awake()

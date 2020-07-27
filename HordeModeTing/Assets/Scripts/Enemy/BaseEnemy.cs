@@ -4,43 +4,69 @@ using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
 {
-    public float CurrentHealth;
-    public float MaxHealth;
-    public bool Alive = true;
-    public GameObject EnemyItem;
+    [SerializeField]        
+    private float _currentHealth;
+    private float _maxHealth;
+    private bool _isDead;
+    [SerializeField]
+    public PoolObjectType EnemyItem;
+    [SerializeField]
     public PoolObjectType Type;
+    [SerializeField]
     public Transform Player;
-    public float BaseSpeed;
+    [SerializeField]
+    //Protected so it is accessible only to derived class
+    //this will be our base speed value that will be different dependant on the enemy
+    protected float _baseSpeed;
 
-    public void DamageEnemy(float damage)
+    [SerializeField]
+
+
+    public float CurrentHealth
     {
-        if (Alive)
-            CurrentHealth -= damage;
-        if (CurrentHealth <= 0)
-        {
-            GameManager.instance.EnemyCounter --;
-            Return();
-        }
-            
+        get 
+        { return _currentHealth; }
+        set 
+        { _currentHealth = value;}
+        
     }
+
+    public float MaxHealth
+    {
+        get
+        { return _maxHealth; }
+        set
+        { _maxHealth = value; }
+    }
+
 
     private void Awake()
     {
+        _isDead = false;
         Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Start()
-    {      
-        CurrentHealth = MaxHealth;
+    {
+        CurrentHealth = _maxHealth;
+    }
+
+
+    public void DamageEnemy(float damage)
+    {
+        if (!_isDead)
+            _currentHealth -= damage;
+        if (_currentHealth <= 0)
+        {
+            GameManager.instance.EnemyCounter--;
+            _isDead = true;
+            Return();
+        }
+
     }
 
     private void Return()
     {
         PoolManager.instance.ReturnObject(this.gameObject, Type);
-    }
-
-    private void Update()
-    {
-            
     }
 }

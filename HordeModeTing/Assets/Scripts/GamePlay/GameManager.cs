@@ -56,6 +56,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Two");
         AmountToSpawn = 1;
         spawn.Spawn(PoolObjectType.RUNNER, AmountToSpawn, spawn.GroundSpawnpoints);
+        EnemyCounter += AmountToSpawn;
+        _enemiesAlive = true;
     }
     //Wave 3
     //Juggernaut miniboss - introduce player to weak spots
@@ -64,6 +66,8 @@ public class GameManager : Singleton<GameManager>
     {
         AmountToSpawn = 1;
         spawn.Spawn(PoolObjectType.JUGGERNAUT, AmountToSpawn, spawn.GroundSpawnpoints);
+        EnemyCounter += AmountToSpawn;
+        _enemiesAlive = true;
     }
     //Wave 4
     //Aerial wave - use sniper to kill
@@ -71,6 +75,8 @@ public class GameManager : Singleton<GameManager>
     {
         AmountToSpawn = 1;
         spawn.Spawn(PoolObjectType.AERIAL, AmountToSpawn, spawn.AerialSpawnPoints);
+        EnemyCounter += AmountToSpawn;
+        _enemiesAlive = true;
     }
     //Wave 5
     //Introduction to Horde Mode
