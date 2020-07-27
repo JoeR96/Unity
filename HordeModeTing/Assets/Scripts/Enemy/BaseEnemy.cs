@@ -10,7 +10,7 @@ public class BaseEnemy : MonoBehaviour
     private float _currentHealth;
     private float _maxHealth;
     private bool _isDead;
-
+    private float _damage;
     //Protected so it is accessible only to derived class
     //this will be our base speed value that will be different dependant on the enemy
     protected float _baseSpeed;
@@ -35,6 +35,12 @@ public class BaseEnemy : MonoBehaviour
         get => _maxHealth;
         set => _maxHealth = value;
     }
+    public float Damage
+    {
+        get => _damage;
+        set => _damage = value;
+    }
+
 
     #endregion
     private void Awake()
@@ -48,7 +54,7 @@ public class BaseEnemy : MonoBehaviour
         CurrentHealth = _maxHealth;
     }
 
-    public void DamageEnemy(float damage)
+    protected virtual void DamageEnemy(float damage)
     {
         if (!_isDead)
             _currentHealth -= damage;
@@ -59,7 +65,14 @@ public class BaseEnemy : MonoBehaviour
             Return();
         }
     }
-
+    protected virtual void OnTriggerEnter(Collider other,float damage)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Hi");    
+            other.GetComponent<Player>().DamagePlayer(damage);
+        }
+    }
     protected void Return()
     {
         PoolManager.instance.ReturnObject(gameObject, Type);

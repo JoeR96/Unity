@@ -10,6 +10,7 @@ public class RunnerEnemy : BaseEnemy
         MaxHealth = 55;
         _baseSpeed = 0.5f;
         _maxSpeed = 10f;
+        Damage = 25f;
     }
 
     private void Awake()
@@ -21,16 +22,22 @@ public class RunnerEnemy : BaseEnemy
     private void Update()
     {
         transform.LookAt(Player);
-    
-        transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, _currentSpeed * Time.deltaTime);
-        SpeedUp();
-        //if(_distance >= 2)
-        //{
-        //    Return();
-        //}
+        var dist = Vector3.Distance(transform.position, Player.position);
+        if(dist > 1)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, _currentSpeed * Time.deltaTime);
+            SpeedUp();
+        }
+    }
 
-
-    }   
+    protected override void DamageEnemy(float damage)
+    {
+        base.DamageEnemy(Damage);
+    }
+    protected override void OnTriggerEnter(Collider other,float damage)
+    {
+        base.OnTriggerEnter(other, Damage); 
+    }
 
     private void SpeedUp()
     {

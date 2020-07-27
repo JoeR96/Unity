@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
     //Player Variables
     private const float _maxHealth = 100;
-    private int _currentArmor;
+    private float _currentArmor;
     private bool _hasArmor;
     private bool _isAlive;
 
@@ -147,15 +147,12 @@ public class Player : MonoBehaviour
          _weapons.Add(weapon);
      }
     
-     public void DamagePlayer(int damage)
+     public void DamagePlayer(float damage)
      {
-         if (_hasArmor)
-         {
-             _currentArmor -= damage;
-         }
-         else
+
          {
             _currentHealth -= damage;
+            Debug.Log(damage);
          }
 
          if (_currentHealth <= 0)
