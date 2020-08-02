@@ -34,9 +34,9 @@ public class RunnerEnemy : BaseEnemy
     {
         base.DamageEnemy(Damage);
     }
-    protected override void OnTriggerEnter(Collider other,float damage)
+    protected override void OnTriggerEnter(Collider other)
     {
-        base.OnTriggerEnter(other, Damage); 
+        DamageEnemy(Damage);
     }
 
     private void SpeedUp()
